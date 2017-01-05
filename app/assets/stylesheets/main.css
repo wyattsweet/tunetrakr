@@ -1,11 +1,24 @@
 /* sass goes here */
 
-#container {
+body {
+  margin: 0;
+}
+
+#topbar {
+  background: grey;
   text-align: center;
 }
 
-#tuneList {
-  text-align: left;
-  max-width: 500px;
-  margin: 0 auto;
+#sidebar {
+  width: 150px;
+  height: 100vh;
+  background: lightgrey;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.tune {
+  margin-left: 150px;
+  padding: 0;
 }
