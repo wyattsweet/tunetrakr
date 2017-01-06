@@ -11,9 +11,30 @@ var TUNES = [
   }
 ]
 
+var AddTuneForm = React.createClass({
+
+
+  onSubmit: function(e) {
+    e.preventDefault();
+  },
+
+  render: function() {
+    return ( 
+      <div className="add-tune-form">
+        <form id="addTuneForm" onSubmit={this.onSubmit} >
+          <input type="text" />
+          <input type="submit" value="Add a Tune" />
+        </form> 
+      </div>
+    ) 
+  }
+})
+
 function Topbar(props) {
   return (
-    <div id="topbar">{props.pageTitle}</div>
+    <div id="topbar">
+      {props.pageTitle}
+    </div>
   )
 }
 
@@ -34,48 +55,61 @@ Sidebar.propTypes = {
   sideBarTitle: React.PropTypes.string.isRequired
 }
 
-function Tune(props) {
-  return (
-    <div className="tune">
-      <span>{props.title}</span>
-    </div> 
-  )
-}
+var Tune = React.createClass({
 
-Tune.propTypes = {
-  title: React.PropTypes.string.isRequired
-}
+  propTypes: {
+    title: React.PropTypes.string.isRequired
+  },
 
-function Application(props) {
-  return (
-    <div className="application">
-      <Sidebar sideBarTitle={props.sideBarTitle}/>
+  render: function() {
+    return (
+      <div className="tune">
+        <span>{this.props.title}</span>
+      </div> 
+    )
+  } 
+})
 
-      <Topbar pageTitle={props.pageTitle} />
+var Application = React.createClass({
+  propType: {
+    pageTitle: React.PropTypes.string,
+    sideBarTitle: React.PropTypes.string,
+    tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
+      title: React.PropTypes.string.isRequired,
+      composer: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired
+    })).isRequired
+  },
 
-      <div id="tuneList">
-        {props.tunes.map(function(tune) {
-            return <Tune title={tune.title} key={tune.id} />  
-        })}
+  getDefaultProps: function() {
+    return {
+      pageTitle: "Repertoire",
+      sideBarTitle: "TT"
+    }
+  },
+
+  getInitialState: function() {
+    return {
+      tunes: this.props.tunes
+    }
+  },
+
+  render: function() {
+    return (
+      <div className="application">
+        <Sidebar sideBarTitle={this.props.sideBarTitle}/>
+  
+        <Topbar pageTitle={this.props.pageTitle} />
+  
+        <div id="tuneList">
+          {this.state.tunes.map(function(tune) {
+              return <Tune title={tune.title} key={tune.id} />  
+          })}
+        </div>
+        <AddTuneForm />
       </div>
-
-    </div>
-  );
-}
-
-Application.propTypes = {
-  pageTitle: React.PropTypes.string,
-  sideBarTitle: React.PropTypes.string,
-  tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    composer: React.PropTypes.string.isRequired,
-    id: React.PropTypes.number.isRequired
-  })).isRequired
-}
-
-Application.defaultProps = {
-  pageTitle: "Repertoire",
-  sideBarTitle: "TT",
-}
+    );
+  }
+})
 
 ReactDOM.render(<Application tunes={TUNES}/>, document.getElementById('container'));
