@@ -13,16 +13,31 @@ var TUNES = [
 
 var AddTuneForm = React.createClass({
 
+  propTypes: {
+    onAdd: React.PropTypes.func.isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      name: "",
+    };
+  },
+
+  onNameChange: function(e) {
+    this.setState({name: e.target.value})
+  },
 
   onSubmit: function(e) {
     e.preventDefault();
+    this.props.onAdd(this.state.name);
+    this.setState({name: ""});
   },
 
   render: function() {
     return ( 
       <div className="add-tune-form">
-        <form id="addTuneForm" onSubmit={this.onSubmit} >
-          <input type="text" />
+        <form id="addTuneForm" onSubmit={this.onSubmit}>
+          <input type="text" value={this.state.name} onChange={this.onNameChange}/>
           <input type="submit" value="Add a Tune" />
         </form> 
       </div>
@@ -33,6 +48,7 @@ var AddTuneForm = React.createClass({
 function Topbar(props) {
   return (
     <div id="topbar">
+      <button className="addTune">Add Tune</button>
       {props.pageTitle}
     </div>
   )
@@ -46,10 +62,9 @@ function Sidebar(props) {
   return (
     <div id="sidebar">
       <h1>{props.sideBarTitle}</h1>
-      <button className="addTune">Add Tune</button>
     </div>
   )
-}
+};
 
 Sidebar.propTypes = {
   sideBarTitle: React.PropTypes.string.isRequired
@@ -94,6 +109,17 @@ var Application = React.createClass({
     }
   },
 
+  onPlayerAdd: function(name) {
+    console.log('tune added:', name);
+    this.state.tunes.push({
+      title: name,
+      composer: "default",
+      id: this.state.tunes.length += 1
+    })
+
+    this.setState(this.state);
+  },
+
   render: function() {
     return (
       <div className="application">
@@ -106,7 +132,7 @@ var Application = React.createClass({
               return <Tune title={tune.title} key={tune.id} />  
           })}
         </div>
-        <AddTuneForm />
+        <AddTuneForm onAdd={this.onPlayerAdd} />
       </div>
     );
   }
