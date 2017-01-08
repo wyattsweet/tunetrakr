@@ -2,12 +2,12 @@ var TUNES = [
   {
     id: 1,
     title: "You'd Be So Nice to Come Home To",
-    composer: "Cole Porter"
+    artist: "Cole Porter"
   },
   {
     id: 2,
     title: "Satin Doll",
-    composer: "Billy Strayhorn"
+    artist: "Billy Strayhorn"
   }
 ]
 
@@ -19,44 +19,43 @@ var AddTuneForm = React.createClass({
 
   getInitialState: function() {
     return {
+      artist: "",
       name: "",
     };
   },
 
-  onNameChange: function(e) {
+  onArtistChange: function(e) {
+    this.setState({artist: e.target.value})
+  },
+
+  onTitleChange: function(e) {
     this.setState({name: e.target.value})
   },
 
   onSubmit: function(e) {
     e.preventDefault();
-    this.props.onAdd(this.state.name);
-    this.setState({name: ""});
+    this.props.onAdd({
+      artist: this.state.artist,
+      title: this.state.name
+    });
+    this.setState({
+      artist: "",
+      name: ""
+    });
   },
 
   render: function() {
     return ( 
       <div id="tune-modal">
         <form id="addTuneForm" onSubmit={this.onSubmit}>
-          <input type="text" value={this.state.name} onChange={this.onNameChange}/>
+          <input type="text" value={this.state.artist} onChange={this.onArtistChange}/>
+          <input type="text" value={this.state.name} onChange={this.onTitleChange}/>
           <input type="submit" value="Add" />
         </form> 
       </div>
     ) 
   }
 })
-
-function Topbar(props) {
-  return (
-    <div id="top">
-      <button className="addTune">Add Tune</button>
-      {props.pageTitle}
-    </div>
-  )
-}
-
-Topbar.propTypes = {
-  pageTitle: React.PropTypes.string.isRequired
-}
 
 function Sidebar(props) {
   return (
@@ -73,12 +72,14 @@ Sidebar.propTypes = {
 var Tune = React.createClass({
 
   propTypes: {
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
+    artist: React.PropTypes.string.isRequired
   },
 
   render: function() {
     return (
       <div className="tune">
+        <span>{this.props.artist}</span> – 
         <span>{this.props.title}</span>
       </div> 
     )
@@ -91,8 +92,9 @@ var Application = React.createClass({
     sideBarTitle: React.PropTypes.string,
     tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
       title: React.PropTypes.string.isRequired,
-      composer: React.PropTypes.string.isRequired,
-      id: React.PropTypes.number.isRequired
+      artist: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired,
+      pageTitle: React.PropTypes.string.isRequired
     })).isRequired
   },
 
@@ -105,34 +107,46 @@ var Application = React.createClass({
 
   getInitialState: function() {
     return {
-      tunes: this.props.tunes
+      tunes: this.props.tunes,
+      addPlayerModalVisible: false 
     }
   },
 
-  onPlayerAdd: function(name) {
-    console.log('tune added:', name);
+  addPlayerButton: function() {
+    this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
+  },
+
+  onPlayerAdd: function(newTune) {
     this.state.tunes.push({
-      title: name,
-      composer: "default",
+      title: newTune.title,
+      artist: newTune.artist,
       id: this.state.tunes.length += 1
     })
 
     this.setState(this.state);
+    this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
   },
 
   render: function() {
     return (
       <div className="application">
+
+        <div id="top">
+          <input  type="button" className="addTune" onClick={this.addPlayerButton} value="Add Tune" />
+          {this.props.pageTitle}
+        </div>
+
+
         <Sidebar sideBarTitle={this.props.sideBarTitle}/>
-  
-        <Topbar pageTitle={this.props.pageTitle} />
   
         <div id="tuneList">
           {this.state.tunes.map(function(tune) {
-              return <Tune title={tune.title} key={tune.id} />  
+              return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
           })}
         </div>
-        <AddTuneForm onAdd={this.onPlayerAdd} />
+
+        {this.state.addPlayerModalVisible ? <AddTuneForm onAdd={this.onPlayerAdd} /> : null}
+
       </div>
     );
   }
