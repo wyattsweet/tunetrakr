@@ -35,10 +35,10 @@ var AddTuneForm = React.createClass({
 
   render: function() {
     return ( 
-      <div className="add-tune-form">
+      <div id="tune-modal">
         <form id="addTuneForm" onSubmit={this.onSubmit}>
           <input type="text" value={this.state.name} onChange={this.onNameChange}/>
-          <input type="submit" value="Add a Tune" />
+          <input type="submit" value="Add" />
         </form> 
       </div>
     ) 
@@ -47,7 +47,7 @@ var AddTuneForm = React.createClass({
 
 function Topbar(props) {
   return (
-    <div id="topbar">
+    <div id="top">
       <button className="addTune">Add Tune</button>
       {props.pageTitle}
     </div>
