@@ -2,7 +2,7 @@
   "name": "tunetrakr",
   "version": "0.0.1",
   "description": "",
-  "main": "config/index.js",
+  "main": "app.js",
   "scripts": {
     "build-css": "./bin/build-css",
     "watch-css": "./bin/watch-css"
