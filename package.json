@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.14.0",
     "node-sass": "^3.10.0",
-    "nodemon": "^1.10.2"
+    "nodemon": "^1.10.2",
+    "pg": "^6.1.2"
   }
 }
