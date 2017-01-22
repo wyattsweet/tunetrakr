@@ -12,6 +12,7 @@ var query = client.query("CREATE TABLE tunes(id SERIAL PRIMARY KEY, \
                                              title VARCHAR(40) NOT NULL, \
                                              key VARCHAR(3), \
                                              tonality VARCHAR(6), \
-                                             style VARCHAR(20) \
+                                             style VARCHAR(20), \
+                                             instrument VARCHAR(40) \
                                              )");
 query.on('end', () => { client.end(); });
