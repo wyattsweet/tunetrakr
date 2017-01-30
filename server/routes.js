@@ -25,4 +25,10 @@ app.post('/api/v1/tunes', (req, res) => {
   })
 })
 
+app.get('/api/v1/tunes', (req, res) => {
+  Tunes.getAll().then((data) => {
+    res.send(data);
+  })
+})
+
 module.exports = app;

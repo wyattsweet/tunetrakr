@@ -1,16 +1,3 @@
-var TUNES = [
-  {
-    id: 1,
-    title: "You'd Be So Nice to Come Home To",
-    artist: "Cole Porter"
-  },
-  {
-    id: 2,
-    title: "Satin Doll",
-    artist: "Billy Strayhorn"
-  }
-]
-
 var AddTuneForm = React.createClass({
 
   propTypes: {
@@ -107,7 +94,7 @@ var Application = React.createClass({
 
   getInitialState: function() {
     return {
-      tunes: this.props.tunes,
+      tunes: [],
       addPlayerModalVisible: false 
     }
   },
@@ -125,6 +112,25 @@ var Application = React.createClass({
 
     this.setState(this.state);
     this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
+  },
+
+  fetchData: function() {
+  },
+
+  componentDidMount: function() {
+    var _this = this;
+    fetch('/api/v1/tunes')
+    .then(function(response) {
+      response.json().then(function(data) {
+        console.log(data);
+        _this.state.tunes.push({
+          title: data[0].title,
+          artist: data[0].artist,
+          id: data[0].id
+        });
+        _this.setState(_this.state);
+      })
+    });
   },
 
   render: function() {
@@ -152,4 +158,4 @@ var Application = React.createClass({
   }
 })
 
-ReactDOM.render(<Application tunes={TUNES}/>, document.getElementById('container'));
+ReactDOM.render(<Application />, document.getElementById('container'));
