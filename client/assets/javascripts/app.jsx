@@ -50,7 +50,7 @@ function Sidebar(props) {
       <h1>{props.sideBarTitle}</h1>
     </div>
   )
-};
+}
 
 Sidebar.propTypes = {
   sideBarTitle: React.PropTypes.string.isRequired
@@ -95,15 +95,15 @@ var Application = React.createClass({
   getInitialState: function() {
     return {
       tunes: [],
-      addPlayerModalVisible: false 
+      addTuneModalVisible: false 
     }
   },
 
-  addPlayerButton: function() {
-    this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
+  addTuneButton: function() {
+    this.setState({addTuneModalVisible: !this.state.addTuneModalVisible}) 
   },
 
-  onPlayerAdd: function(newTune) {
+  onTuneAdd: function(newTune) {
     this.state.tunes.push({
       title: newTune.title,
       artist: newTune.artist,
@@ -122,13 +122,7 @@ var Application = React.createClass({
     fetch('/api/v1/tunes')
     .then(function(response) {
       response.json().then(function(data) {
-        console.log(data);
-        _this.state.tunes.push({
-          title: data[0].title,
-          artist: data[0].artist,
-          id: data[0].id
-        });
-        _this.setState(_this.state);
+        _this.setState({tunes: data});
       })
     });
   },
@@ -138,7 +132,7 @@ var Application = React.createClass({
       <div className="application">
 
         <div id="top">
-          <input  type="button" className="addTune" onClick={this.addPlayerButton} value="Add Tune" />
+          <input  type="button" className="addTune" onClick={this.addTuneButton} value="Add Tune" />
           {this.props.pageTitle}
         </div>
 
@@ -151,7 +145,7 @@ var Application = React.createClass({
           })}
         </div>
 
-        {this.state.addPlayerModalVisible ? <AddTuneForm onAdd={this.onPlayerAdd} /> : null}
+        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.onTuneAdd} /> : null}
 
       </div>
     );
