@@ -73,18 +73,63 @@ var Tune = React.createClass({
   } 
 })
 
-
-
-var Application = React.createClass({
-  propType: {
-    pageTitle: React.PropTypes.string,
-    sideBarTitle: React.PropTypes.string,
+var Tunes = React.createClass({
+  propTypes: {
     tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
       title: React.PropTypes.string.isRequired,
       artist: React.PropTypes.string.isRequired,
       id: React.PropTypes.number.isRequired,
       pageTitle: React.PropTypes.string.isRequired
     })).isRequired
+  },
+
+  render: function() {
+    return (
+      <div id="tunesList">
+        {this.props.tunes.map(function(tune) {
+          return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
+        })}
+      </div>
+    )
+  }
+})
+
+// TunesContainer responsible for data-fetching
+var TunesContainer = React.createClass({
+  propTypes: {
+    tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
+      title: React.PropTypes.string.isRequired,
+      artist: React.PropTypes.string.isRequired,
+      id: React.PropTypes.number.isRequired,
+      pageTitle: React.PropTypes.string.isRequired
+    })).isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      tunes: []
+    }
+  },
+
+  componentDidMount: function() {
+    var _this = this;
+    fetch('/api/v1/tunes')
+    .then(function(response) {
+      response.json().then(function(data) {
+        _this.setState({tunes: data});
+      })
+    });
+  },
+
+  render: function() {
+    return <Tunes tunes={this.state.tunes} />
+  }
+})
+
+var Application = React.createClass({
+  propType: {
+    pageTitle: React.PropTypes.string,
+    sideBarTitle: React.PropTypes.string,
   },
 
   getDefaultProps: function() {
@@ -96,7 +141,6 @@ var Application = React.createClass({
 
   getInitialState: function() {
     return {
-      tunes: [],
       addTuneModalVisible: false 
     }
   },
@@ -116,19 +160,6 @@ var Application = React.createClass({
     this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
   },
 
-  fetchData: function() {
-  },
-
-  componentDidMount: function() {
-    var _this = this;
-    fetch('/api/v1/tunes')
-    .then(function(response) {
-      response.json().then(function(data) {
-        _this.setState({tunes: data});
-      })
-    });
-  },
-
   render: function() {
     return (
       <div className="application">
@@ -138,14 +169,8 @@ var Application = React.createClass({
           {this.props.pageTitle}
         </div>
 
-
         <Sidebar sideBarTitle={this.props.sideBarTitle}/>
-  
-        <div id="tunesList">
-          {this.state.tunes.map(function(tune) {
-              return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
-          })}
-        </div>
+        <TunesContainer /> 
 
         {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.onTuneAdd} /> : null}
 
