@@ -73,6 +73,8 @@ var Tune = React.createClass({
   } 
 })
 
+
+
 var Application = React.createClass({
   propType: {
     pageTitle: React.PropTypes.string,
@@ -139,7 +141,7 @@ var Application = React.createClass({
 
         <Sidebar sideBarTitle={this.props.sideBarTitle}/>
   
-        <div id="tuneList">
+        <div id="tunesList">
           {this.state.tunes.map(function(tune) {
               return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
           })}
