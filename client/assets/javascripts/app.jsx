@@ -85,7 +85,7 @@ var Tunes = React.createClass({
 
   render: function() {
     return (
-      <div id="tunesList">
+      <div>
         {this.props.tunes.map(function(tune) {
           return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
         })}
@@ -107,8 +107,41 @@ var TunesContainer = React.createClass({
 
   getInitialState: function() {
     return {
-      tunes: []
+      tunes: [],
+      addTuneModalVisible: false 
     }
+  },
+
+  showTuneModal: function() {
+    this.setState({addTuneModalVisible: !this.state.addTuneModalVisible}) 
+  },
+
+  addTune: function(tune) {
+
+    var myHeaders = new Headers();
+
+    myHeaders.append('Content-Type', 'application/json');
+  
+    fetch('/api/v1/tunes', {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(tune)
+    })
+    .then(function(response) {
+      console.log('we\'re bach') 
+    })
+  },
+
+  onTuneAdd: function(newTune) {
+
+    this.addTune(newTune);
+    this.state.tunes.push({
+      title: newTune.title,
+      artist: newTune.artist,
+      id: this.state.tunes.length += 1
+    })
+
+    this.setState({addTuneModalVisible: !this.state.addTuneModalVisible}) 
   },
 
   componentDidMount: function() {
@@ -122,7 +155,14 @@ var TunesContainer = React.createClass({
   },
 
   render: function() {
-    return <Tunes tunes={this.state.tunes} />
+    return (
+      <div id="tunesList">
+        <input  type="button" className="addTune" onClick={this.showTuneModal} value="Add Tune" />
+        {!this.state.addPlayerModalVisible}
+        <Tunes tunes={this.state.tunes} />
+        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.onTuneAdd} /> : null}
+      </div>
+    )
   }
 })
 
@@ -139,41 +179,15 @@ var Application = React.createClass({
     }
   },
 
-  getInitialState: function() {
-    return {
-      addTuneModalVisible: false 
-    }
-  },
-
-  addTuneButton: function() {
-    this.setState({addTuneModalVisible: !this.state.addTuneModalVisible}) 
-  },
-
-  onTuneAdd: function(newTune) {
-    this.state.tunes.push({
-      title: newTune.title,
-      artist: newTune.artist,
-      id: this.state.tunes.length += 1
-    })
-
-    this.setState(this.state);
-    this.setState({addPlayerModalVisible: !this.state.addPlayerModalVisible}) 
-  },
 
   render: function() {
     return (
       <div className="application">
-
         <div id="top">
-          <input  type="button" className="addTune" onClick={this.addTuneButton} value="Add Tune" />
           {this.props.pageTitle}
         </div>
-
         <Sidebar sideBarTitle={this.props.sideBarTitle}/>
         <TunesContainer /> 
-
-        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.onTuneAdd} /> : null}
-
       </div>
     );
   }
