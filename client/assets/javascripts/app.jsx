@@ -8,6 +8,7 @@ var AddTuneForm = React.createClass({
     return {
       artist: "",
       name: "",
+      instrument: ""
     };
   },
 
@@ -19,15 +20,21 @@ var AddTuneForm = React.createClass({
     this.setState({name: e.target.value})
   },
 
+  onInstrumentChange: function(e) {
+    this.setState({instrument: e.target.value})
+  },
+
   onSubmit: function(e) {
     e.preventDefault();
     this.props.onAdd({
       artist: this.state.artist,
-      title: this.state.name
+      title: this.state.name,
+      instrument: this.state.instrument
     });
     this.setState({
       artist: "",
-      name: ""
+      name: "",
+      instrument: ""
     });
   },
 
@@ -35,8 +42,9 @@ var AddTuneForm = React.createClass({
     return ( 
       <div id="tune-modal">
         <form id="addTuneForm" onSubmit={this.onSubmit}>
-          <input type="text" value={this.state.artist} onChange={this.onArtistChange}/>
-          <input type="text" value={this.state.name} onChange={this.onTitleChange}/>
+          <input type="text" placeholder="Artist" value={this.state.artist} onChange={this.onArtistChange}/>
+          <input type="text" placeholder="Title" value={this.state.name} onChange={this.onTitleChange}/>
+          <input type="text" placeholder="Instrument" value={this.state.instrument} onChange={this.onInstrumentChange}/>
           <input type="submit" value="Add" />
         </form> 
       </div>
@@ -128,7 +136,12 @@ var TunesContainer = React.createClass({
       body: JSON.stringify(tune)
     })
     .then(function(response) {
-      console.log('we\'re bach') 
+      return response.json();
+    })
+    .then(function(json) {
+      console.log(json);
+      // add json to state.tunes
+      // end promise
     })
   },
 

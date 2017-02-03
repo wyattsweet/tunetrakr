@@ -17,15 +17,13 @@ app.get('/', function (req, res) {
 })
 
 app.post('/api/v1/tunes', (req, res) => {
-  console.log(req.body);
-  res.send('done');
-//  const data = {artist: req.body.artist,
-//                title: req.body.title,
-//                instrument: req.body.instrument}
-//
-//  Tunes.post(data).then(function(data) {
-//    console.log(data);
-//  })
+  const data = {artist: req.body.artist,
+                title: req.body.title,
+                instrument: req.body.instrument}
+
+  Tunes.post(data).then(function(data) {
+    res.send(data);
+  })
 })
 
 app.get('/api/v1/tunes', (req, res) => {
