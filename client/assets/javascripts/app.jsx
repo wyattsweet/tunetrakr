@@ -125,7 +125,7 @@ var TunesContainer = React.createClass({
   },
 
   addTune: function(tune) {
-
+    var _this = this;
     var myHeaders = new Headers();
 
     myHeaders.append('Content-Type', 'application/json');
@@ -139,22 +139,15 @@ var TunesContainer = React.createClass({
       return response.json();
     })
     .then(function(json) {
-      console.log(json);
       // add json to state.tunes
-      // end promise
+      _this.state.tunes.push({
+        title: json.title,
+        artist: json.artist,
+        id: json.id 
+      })
+  
+      _this.setState({addTuneModalVisible: !_this.state.addTuneModalVisible});
     })
-  },
-
-  onTuneAdd: function(newTune) {
-
-    this.addTune(newTune);
-    this.state.tunes.push({
-      title: newTune.title,
-      artist: newTune.artist,
-      id: this.state.tunes.length += 1
-    })
-
-    this.setState({addTuneModalVisible: !this.state.addTuneModalVisible}) 
   },
 
   componentDidMount: function() {
@@ -173,7 +166,7 @@ var TunesContainer = React.createClass({
         <input  type="button" className="addTune" onClick={this.showTuneModal} value="Add Tune" />
         {!this.state.addPlayerModalVisible}
         <Tunes tunes={this.state.tunes} />
-        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.onTuneAdd} /> : null}
+        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.addTune} /> : null}
       </div>
     )
   }
