@@ -68,7 +68,8 @@ var Tune = React.createClass({
 
   propTypes: {
     title: React.PropTypes.string.isRequired,
-    artist: React.PropTypes.string.isRequired
+    artist: React.PropTypes.string.isRequired,
+    removeTune: React.PropTypes.func.isRequired
   },
 
   render: function() {
@@ -76,6 +77,7 @@ var Tune = React.createClass({
       <div className="tune">
         <span>{this.props.artist}</span> – 
         <span>{this.props.title}</span>
+        <a className="remove-tune" onClick={this.props.removeTune}>x</a>
       </div> 
     )
   } 
@@ -83,6 +85,7 @@ var Tune = React.createClass({
 
 var Tunes = React.createClass({
   propTypes: {
+    deleteTune: React.PropTypes.func.isRequired, 
     tunes: React.PropTypes.arrayOf(React.PropTypes.shape({
       title: React.PropTypes.string.isRequired,
       artist: React.PropTypes.string.isRequired,
@@ -91,12 +94,22 @@ var Tunes = React.createClass({
     })).isRequired
   },
 
+  onRemoveTune: function(index) {
+    var _this = this;
+    var playerId = this.props.tunes[index].id;
+    this.props.deleteTune(index, playerId);
+  },
+
   render: function() {
     return (
       <div>
-        {this.props.tunes.map(function(tune) {
-          return <Tune artist={tune.artist} title={tune.title} key={tune.id} />  
-        })}
+        {this.props.tunes.map(function(tune, index) {
+          return <Tune 
+            removeTune={function() { this.onRemoveTune(index) }.bind(this)}
+            artist={tune.artist} 
+            title={tune.title} 
+            key={tune.id} />
+        }.bind(this))}
       </div>
     )
   }
@@ -150,6 +163,19 @@ var TunesContainer = React.createClass({
     })
   },
 
+  removeTune: function(index, playerId) {
+    var _this = this;
+    fetch('/api/v1/tunes/' + playerId, {
+      method: 'DELETE' 
+    })
+    .then(function(response) {
+      return response.json();    
+    })
+    .then(function(json) {
+      _this.setState({tunes: json});
+    })
+  },
+
   componentDidMount: function() {
     var _this = this;
     fetch('/api/v1/tunes')
@@ -164,8 +190,8 @@ var TunesContainer = React.createClass({
     return (
       <div id="tunesList">
         <input  type="button" className="addTune" onClick={this.showTuneModal} value="Add Tune" />
-        {!this.state.addPlayerModalVisible}
-        <Tunes tunes={this.state.tunes} />
+        <Tunes tunes={this.state.tunes} 
+               deleteTune={function(index, playerId) { this.removeTune(index, playerId) }.bind(this)} />
         {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.addTune} /> : null}
       </div>
     )

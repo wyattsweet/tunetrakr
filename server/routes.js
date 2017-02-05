@@ -10,12 +10,19 @@ var views = path.join(__dirname, '/../client/views');
 
 // Middleware
 app.use(bodyParser.json()); // allow middleware to accept json
-//app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(views, 'index.html'));
 })
 
+// Get all tunes
+app.get('/api/v1/tunes', (req, res) => {
+  Tunes.getAll().then((data) => {
+    res.send(data);
+  })
+})
+
+// Post a tune
 app.post('/api/v1/tunes', (req, res) => {
   const data = {artist: req.body.artist,
                 title: req.body.title,
@@ -26,8 +33,12 @@ app.post('/api/v1/tunes', (req, res) => {
   })
 })
 
-app.get('/api/v1/tunes', (req, res) => {
-  Tunes.getAll().then((data) => {
+// Delete a tune
+app.delete('/api/v1/tunes/:id', (req, res) => {
+  const tuneId = req.params.id;
+  Tunes.deleteTune(tuneId)
+  .then(function(data) {
+    console.log(data);
     res.send(data);
   })
 })

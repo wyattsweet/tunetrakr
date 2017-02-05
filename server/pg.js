@@ -6,10 +6,10 @@ var Tunes = (function() {
 var results = [];
 //###################### 
 // Post to tunes table 
-// ###################//
+// #####################
 
   var post = function(data) {
-    return new Promise(function(res, rej) {
+    return new Promise((res, rej) => {
     
       pg.connect(connectionString, (err, client, done) => {
         // check errors
@@ -18,8 +18,8 @@ var results = [];
           rej(JSON.stringify({success: false, data: err}));
         }
    
-        var queryText = 'INSERT INTO tunes(artist, title, instrument) values($1, $2, $3) RETURNING *';
-        client.query(queryText, [data.artist, data.title, data.instrument], function(err, result) {
+        const queryText = 'INSERT INTO tunes(artist, title, instrument) values($1, $2, $3) RETURNING *';
+        client.query(queryText, [data.artist, data.title, data.instrument], (err, result) => {
           if (err) {
             done();
             rej(JSON.stringify({success: false, data: err}));
@@ -34,10 +34,10 @@ var results = [];
 
 //###################### 
 // Get all the tunes 
-// ###################//
+// #####################
 
   var getAll = function() {
-    return new Promise(function(res, rej) {
+    return new Promise((res, rej) => {
       pg.connect(connectionString, (err, client, done) => {
         const query = client.query('SELECT * FROM tunes ORDER BY id ASC');
 
@@ -53,9 +53,33 @@ var results = [];
     })
   }
 
+//###################### 
+// Delete 
+// #####################
+  var deleteTune = function(id) {
+    id = parseInt(id);
+    results = [];
+
+    return new Promise((res, rej) => {
+      pg.connect(connectionString, (err, client, done) => {
+        const queryText = 'DELETE FROM tunes WHERE id=($1)';
+        const query = client.query(queryText, [id]);
+        var getAllQuery = client.query('SELECT * FROM tunes ORDER BY id ASC');
+        getAllQuery.on('row', (row) => {
+          results.push(row);
+        });
+        getAllQuery.on('end', () => {
+          done();
+          res(JSON.stringify(results));
+        })
+      })
+    })
+  }
+
   return {
     post: post,
-    getAll: getAll
+    getAll: getAll,
+    deleteTune: deleteTune
   };
 }());
 
