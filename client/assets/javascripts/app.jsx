@@ -77,7 +77,7 @@ var Tune = React.createClass({
       <div className="tune">
         <span>{this.props.artist}</span> – 
         <span>{this.props.title}</span>
-        <a className="remove-tune" onClick={this.props.removeTune}>x</a>
+        <a href="#" className="remove-tune" onClick={this.props.removeTune}>x</a>
       </div> 
     )
   } 
@@ -216,7 +216,7 @@ var Application = React.createClass({
     return (
       <div className="application">
         <div id="top">
-          {this.props.pageTitle}
+          <h1>{this.props.pageTitle}</h1>
         </div>
         <Sidebar sideBarTitle={this.props.sideBarTitle}/>
         <TunesContainer /> 
