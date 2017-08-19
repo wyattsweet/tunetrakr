@@ -6,7 +6,7 @@ const express          = require('express'),
       path             = require('path'),
       Tunes            = require('./pg.js');
     
-var views = path.join(__dirname, '/../client/views');
+var views = path.join(__dirname, '/../app/views');
 
 // Middleware
 app.use(bodyParser.json()); // allow middleware to accept json

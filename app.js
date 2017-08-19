@@ -3,9 +3,9 @@ var express = require('express'),
     path    = require('path'),
     routes  = require('./server/routes.js');
 
-app.use(express.static(path.join(__dirname, '/client/assets')));
+app.use(express.static(path.join(__dirname, '/app/assets')));
 
-var views = path.join(__dirname, '/client/views')
+var views = path.join(__dirname, '/app/views')
 
 app.use('/', routes);
 
