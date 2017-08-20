@@ -1,33 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 
 // import Sidebar from './Sidebar';
 // import TunesContainer from './TunesContainer';
 
-class App extends Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (
-      <div className="application">
-        <div id="top">
-          <h1>{this.props.pageTitle}</h1>
-        </div>
-      </div>
-    );
-  }
-}
+const App = ({ pageTitle }) => (
+  <div className="application">
+    <div id="top">
+      <h1>{pageTitle}</h1>
+    </div>
+  </div>
+)
 
 App.defaultProps = {
   pageTitle: "Repertoire",
   sideBarTitle: "TT"
 }
 
-App.propType = {
-  pageTitle: React.PropTypes.string,
-  sideBarTitle: React.PropTypes.string,
-},
+App.propTypes = {
+  pageTitle: PropTypes.string
+}
 
 render(<App />, document.getElementById('container'));
