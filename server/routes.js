@@ -6,13 +6,13 @@ const express = require('express'),
   path = require('path'),
   Tunes = require('./pg.js');
 
-var views = path.join(__dirname, '/../app/views');
+var views = path.join(__dirname, '/..');
 
 // Middleware
 app.use(bodyParser.json()); // allow middleware to accept json
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(views, 'index.html'));
 });
 
 // Get all tunes
