@@ -1,29 +1,20 @@
-var AddTuneForm = React.createClass({
-  propTypes: {
-    onAdd: React.PropTypes.func.isRequired
-  },
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-  getInitialState: function() {
-    return {
-      artist: '',
-      name: '',
-      instrument: ''
-    };
-  },
-
-  onArtistChange: function(e) {
+class AddTuneForm extends Component {
+  onArtistChange(e) {
     this.setState({ artist: e.target.value });
-  },
+  }
 
-  onTitleChange: function(e) {
+  onTitleChange(e) {
     this.setState({ name: e.target.value });
-  },
+  }
 
-  onInstrumentChange: function(e) {
+  onInstrumentChange(e) {
     this.setState({ instrument: e.target.value });
-  },
+  }
 
-  onSubmit: function(e) {
+  onSubmit(e) {
     e.preventDefault();
     this.props.onAdd({
       artist: this.state.artist,
@@ -35,9 +26,9 @@ var AddTuneForm = React.createClass({
       name: '',
       instrument: ''
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div id="tune-modal">
         <form id="addTuneForm" onSubmit={this.onSubmit}>
@@ -64,4 +55,16 @@ var AddTuneForm = React.createClass({
       </div>
     );
   }
-});
+}
+
+AddTuneForm.defaultProps = {
+  artist: '',
+  name: '',
+  instrument: ''
+};
+
+AddTuneForm.propTypes = {
+  onAdd: PropTypes.func.isRequired
+};
+
+export default AddTuneForm;

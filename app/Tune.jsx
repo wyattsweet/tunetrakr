@@ -1,19 +1,19 @@
-var Tune = React.createClass({
-  propTypes: {
-    title: React.PropTypes.string.isRequired,
-    artist: React.PropTypes.string.isRequired,
-    removeTune: React.PropTypes.func.isRequired
-  },
+import React from 'react';
+import PropTypes from 'prop-types';
 
-  render: function() {
-    return (
-      <div className="tune">
-        <span>{this.props.artist}</span> –
-        <span>{this.props.title}</span>
-        <a href="#" className="remove-tune" onClick={this.props.removeTune}>
-          x
-        </a>
-      </div>
-    );
-  }
-});
+const Tune = props =>
+  <div className="tune">
+    <span>{props.artist}</span> –
+    <span>{props.title}</span>
+    <button className="remove-tune" onClick={props.removeTune}>
+      x
+    </button>
+  </div>;
+
+Tune.propTypes = {
+  title: PropTypes.string.isRequired,
+  artist: PropTypes.string.isRequired,
+  removeTune: PropTypes.func.isRequired
+};
+
+export default Tune;

@@ -1,44 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-var Tunes = React.createClass({
-  propTypes: {
-    deleteTune: React.PropTypes.func.isRequired,
-    tunes: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        title: React.PropTypes.string.isRequired,
-        artist: React.PropTypes.string.isRequired,
-        id: React.PropTypes.number.isRequired,
-        pageTitle: React.PropTypes.string.isRequired
-      })
-    ).isRequired
-  },
+import Tune from './Tune';
 
-  onRemoveTune: function(index) {
-    var _this = this;
-    var playerId = this.props.tunes[index].id;
-    this.props.deleteTune(index, playerId);
-  },
+class Tunes extends Component {
+  constructor() {
+    super();
+    this.onRemoveTune = this.onRemoveTune.bind(this);
+  }
 
-  render: function() {
+  onRemoveTune(index) {
+    return () => {
+      const playerId = this.props.tunes[index].id;
+      this.props.deleteTune(index, playerId);
+    };
+  }
+
+  render() {
     return (
       <div>
-        {this.props.tunes.map(
-          function(tune, index) {
-            return (
-              <Tune
-                removeTune={function() {
-                  this.onRemoveTune(index);
-                }.bind(this)}
-                artist={tune.artist}
-                title={tune.title}
-                key={tune.id}
-              />
-            );
-          }.bind(this)
+        {this.props.tunes.map((tune, index) =>
+          <Tune
+            removeTune={this.onRemoveTune(index)}
+            artist={tune.artist}
+            title={tune.title}
+            key={tune.id}
+          />
         )}
       </div>
     );
   }
-});
+}
+
+Tunes.propTypes = {
+  deleteTune: PropTypes.func.isRequired,
+  tunes: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      artist: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      pageTitle: PropTypes.string.isRequired
+    })
+  ).isRequired
+};
 
 export default Tunes;
