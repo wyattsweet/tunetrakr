@@ -1,17 +1,3 @@
-function Sidebar(props) {
-  return (
-    <div id="sidebar">
-      <h1>
-        {props.sideBarTitle}
-      </h1>
-    </div>
-  );
-}
-
-Sidebar.propTypes = {
-  sideBarTitle: React.PropTypes.string.isRequired
-};
-
 var Tune = React.createClass({
   propTypes: {
     title: React.PropTypes.string.isRequired,

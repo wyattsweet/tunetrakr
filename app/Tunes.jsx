@@ -1,3 +1,5 @@
+import React from 'react';
+
 var Tunes = React.createClass({
   propTypes: {
     deleteTune: React.PropTypes.func.isRequired,
@@ -38,3 +40,5 @@ var Tunes = React.createClass({
     );
   }
 });
+
+export default Tunes;
