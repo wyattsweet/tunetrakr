@@ -8,11 +8,12 @@ class TunesContainer extends Component {
   constructor() {
     super();
     this.removeTune = this.removeTune.bind(this);
+    this.state = { tunes: [] };
   }
 
   componentDidMount() {
     const classThis = this;
-    fetch('/api/v1/tunes').then(response => {
+    fetch('http://127.0.0.1:3000/api/v1/tunes').then(response => {
       response.json().then(data => {
         classThis.setState({ tunes: data });
       });
@@ -43,7 +44,9 @@ class TunesContainer extends Component {
           id: json.id
         });
 
-        classThis.setState({ addTuneModalVisible: classThis.state.addTuneModalVisible });
+        classThis.setState({
+          addTuneModalVisible: classThis.state.addTuneModalVisible
+        });
       });
   }
 
@@ -61,9 +64,16 @@ class TunesContainer extends Component {
   render() {
     return (
       <div id="tunesList">
-        <input type="button" className="addTune" onClick={this.showTuneModal} value="Add Tune" />
+        <input
+          type="button"
+          className="addTune"
+          onClick={this.showTuneModal}
+          value="Add Tune"
+        />
         <Tunes tunes={this.state.tunes} deleteTune={this.removeTune} />
-        {this.state.addTuneModalVisible ? <AddTuneForm onAdd={this.addTune} /> : null}
+        {this.state.addTuneModalVisible ? (
+          <AddTuneForm onAdd={this.addTune} />
+        ) : null}
       </div>
     );
   }
