@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "build-css": "./bin/build-css",
-    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "dev": "webpack-dev-server",
     "format": "prettier --write --single-quote --print-width=100 --parser=flow \"app/**/*.{js, jsx}\"",
     "lint": "eslint ./app/**/*.jsx --quiet",
     "watch": "webpack --watch",

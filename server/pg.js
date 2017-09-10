@@ -39,6 +39,7 @@ var results = [];
   var getAll = function() {
     return new Promise((res, rej) => {
       pg.connect(connectionString, (err, client, done) => {
+        results = [];
         const query = client.query('SELECT * FROM tunes ORDER BY id ASC');
 
         query.on('row', (row) => {

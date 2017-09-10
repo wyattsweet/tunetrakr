@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class AddTuneForm extends Component {
+  constructor() {
+    super();
+    this.onArtistChange = this.onArtistChange.bind(this);
+    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onInstrumentChange = this.onInstrumentChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      artist: '',
+      name: '',
+      instrument: ''
+    };
+  }
+
   onArtistChange(e) {
     this.setState({ artist: e.target.value });
   }

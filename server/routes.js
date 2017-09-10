@@ -10,6 +10,12 @@ var views = path.join(__dirname, '/..');
 
 // Middleware
 app.use(bodyParser.json()); // allow middleware to accept json
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+  next();
+})
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(views, 'index.html'));
@@ -37,6 +43,7 @@ app.post('/api/v1/tunes', (req, res) => {
 
 // Delete a tune
 app.delete('/api/v1/tunes/:id', (req, res) => {
+  debugger;
   const tuneId = req.params.id;
   Tunes.deleteTune(tuneId).then(function(data) {
     console.log(data);

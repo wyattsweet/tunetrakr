@@ -8,7 +8,14 @@ class TunesContainer extends Component {
   constructor() {
     super();
     this.removeTune = this.removeTune.bind(this);
-    this.state = { tunes: [] };
+    this.state = {
+      tunes: [],
+      addTuneModalVisible: false
+    };
+
+    this.showTuneModal = this.showTuneModal.bind(this);
+    this.addTune = this.addTune.bind(this);
+    this.removeTune = this.removeTune.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +37,7 @@ class TunesContainer extends Component {
 
     myHeaders.append('Content-Type', 'application/json');
 
-    fetch('/api/v1/tunes', {
+    fetch('http://127.0.0.1:3000/api/v1/tunes', {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify(tune)
@@ -48,11 +55,13 @@ class TunesContainer extends Component {
           addTuneModalVisible: classThis.state.addTuneModalVisible
         });
       });
+
+    this.setState({ addTuneModalVisible: !this.state.addTuneModalVisible });
   }
 
   removeTune(index, playerId) {
     const classThis = this;
-    fetch(`/api/v1/tunes/${playerId}`, {
+    fetch(`http://127.0.0.1:3000/api/v1/tunes/${playerId}`, {
       method: 'DELETE'
     })
       .then(response => response.json())
@@ -78,9 +87,5 @@ class TunesContainer extends Component {
     );
   }
 }
-
-TunesContainer.defaultProps = {
-  addTuneModalVisible: false
-};
 
 export default TunesContainer;

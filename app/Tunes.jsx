@@ -19,14 +19,14 @@ class Tunes extends Component {
   render() {
     return (
       <div>
-        {this.props.tunes.map((tune, index) =>
+        {this.props.tunes.map((tune, index) => (
           <Tune
             removeTune={this.onRemoveTune(index)}
             artist={tune.artist}
             title={tune.title}
-            key={tune.id}
+            key={`tune-id-${tune.id}`}
           />
-        )}
+        ))}
       </div>
     );
   }
@@ -38,8 +38,7 @@ Tunes.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       artist: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      pageTitle: PropTypes.string.isRequired
+      id: PropTypes.number.isRequired
     })
   ).isRequired
 };
