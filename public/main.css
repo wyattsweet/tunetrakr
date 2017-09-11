@@ -35,7 +35,7 @@ a {
   left: 0;
   bottom: 0; }
 
-#tunesList {
+.mainContentArea {
   position: absolute;
   background: #79BD8F;
   top: 6em;

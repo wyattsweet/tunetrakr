@@ -55,6 +55,27 @@ var results = [];
   }
 
 //###################### 
+// Get one tune 
+// #####################
+
+  var getTune = (id) => {
+    return new Promise((res, rej) => {
+      results = [];
+      pg.connect(connectionString, (err, client, done) => {
+        const query = client.query(`SELECT * FROM tunes WHERE id = ${id}`)
+        query.on('row', (row) => {
+          results.push(row);
+        })
+
+        query.on('end', () => {
+          done();
+          res(JSON.stringify(results));
+        })
+      })
+    })
+  }
+
+//###################### 
 // Delete 
 // #####################
   var deleteTune = function(id) {
@@ -80,6 +101,7 @@ var results = [];
   return {
     post: post,
     getAll: getAll,
+    getTune: getTune,
     deleteTune: deleteTune
   };
 }());

@@ -72,7 +72,7 @@ class TunesContainer extends Component {
 
   render() {
     return (
-      <div id="tunesList">
+      <div className="mainContentArea">
         <input
           type="button"
           className="addTune"

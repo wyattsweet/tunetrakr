@@ -28,6 +28,15 @@ app.get('/api/v1/tunes', (req, res) => {
   });
 });
 
+app.get('/api/v1/tune/:id', (req, res) => {
+  let id = req.params.id;
+  // convert the id to a int
+  id = +id;
+  Tunes.getTune(id).then(data => {
+    res.send(data);
+  })
+})
+
 // Post a tune
 app.post('/api/v1/tunes', (req, res) => {
   const data = {
