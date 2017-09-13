@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
+
 import Tune from './Tune';
 
 class Tunes extends Component {
@@ -20,12 +22,13 @@ class Tunes extends Component {
     return (
       <div>
         {this.props.tunes.map((tune, index) => (
-          <Tune
-            removeTune={this.onRemoveTune(index)}
-            artist={tune.artist}
-            title={tune.title}
-            key={`tune-id-${tune.id}`}
-          />
+          <Link to={`/tunes/${tune.id}`} key={`tune-id-${tune.id}`}>
+            <Tune
+              removeTune={this.onRemoveTune(index)}
+              artist={tune.artist}
+              title={tune.title}
+            />
+          </Link>
         ))}
       </div>
     );
