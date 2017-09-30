@@ -2,10 +2,11 @@
   "name": "tunetrakr",
   "version": "0.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "./database/index.js",
   "scripts": {
     "build": "webpack",
     "build-css": "./bin/build-css",
+    "db": "node ./database",
     "dev": "webpack-dev-server",
     "format": "prettier --write --single-quote --print-width=100 --parser=flow \"app/**/*.{js, jsx}\"",
     "lint": "eslint ./app/**/*.jsx --quiet",
