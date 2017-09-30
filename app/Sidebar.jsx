@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const Sidebar = ({ sideBarTitle }) =>
-  <div id="sidebar">
-    <h1>
-      {sideBarTitle}
-    </h1>
-  </div>;
+const Sidebar = ({ sideBarTitle }) => (
+  <Link id="sidebar" to="/">
+    <h1>{sideBarTitle}</h1>
+  </Link>
+);
 
 Sidebar.propTypes = {
   sideBarTitle: PropTypes.string.isRequired
