@@ -35,6 +35,10 @@ a {
   left: 0;
   bottom: 0; }
 
+  #sidebar h1 {
+    color: white;
+  }
+
 .mainContentArea {
   position: absolute;
   background: #79BD8F;
