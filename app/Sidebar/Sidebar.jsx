@@ -4,20 +4,34 @@ import { Link } from 'react-router-dom';
 
 import styles from './style.css';
 
-const Sidebar = ({ sideBarTitle }) => {
-  console.log(styles);
-  return (
-    <div className={styles.root} id="sidebar">
-      <Link to="/">
-        <h1>{sideBarTitle}</h1>
-      </Link>
-      <ul>
-        <li>Repertoire</li>
-        <li>Practice Routine</li>
-      </ul>
-    </div>
-  );
-};
+const sidebarData = [
+  {
+    display_name: 'Repertoire',
+    key: 1,
+    path: '/repertoire'
+  },
+  {
+    display_name: 'Practice Routine',
+    key: 2,
+    path: '/routine'
+  }
+];
+
+const renderSidebarData = sidebarItems =>
+  sidebarItems.map(item => (
+    <Link to={item.path} className={styles.link} key={item.key}>
+      <li>{item.display_name}</li>
+    </Link>
+  ));
+
+const Sidebar = ({ sideBarTitle }) => (
+  <div className={styles.root}>
+    <Link to="/">
+      <h1 className={styles.title}>{sideBarTitle}</h1>
+    </Link>
+    <ul>{renderSidebarData(sidebarData)}</ul>
+  </div>
+);
 Sidebar.propTypes = {
   sideBarTitle: PropTypes.string.isRequired
 };

@@ -26,27 +26,6 @@ a {
   display: inline-block;
   text-transform: uppercase; }
 
-#sidebar {
-  position: absolute;
-  width: 12.5em;
-  background: black;
-  color: white;
-  top: 0;
-  left: 0;
-  bottom: 0; }
-
-  #sidebar h1 {
-    color: white;
-  }
-
-.mainContentArea {
-  position: absolute;
-  background: #79BD8F;
-  top: 6em;
-  left: 12.5em;
-  right: 0;
-  bottom: 0; }
-
 .addTune {
   position: fixed;
   top: 0; }
