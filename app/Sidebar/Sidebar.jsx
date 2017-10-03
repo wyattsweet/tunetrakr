@@ -32,6 +32,7 @@ const Sidebar = ({ sideBarTitle }) => (
     <ul>{renderSidebarData(sidebarData)}</ul>
   </div>
 );
+
 Sidebar.propTypes = {
   sideBarTitle: PropTypes.string.isRequired
 };

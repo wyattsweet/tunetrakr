@@ -1,8 +1,8 @@
 // run this file to create Postgres database tables
 
-var pg               = require('pg'),
+var pg = require('pg'),
     connectionString = 'postgres://localhost:5432/tunetrakr',
-    client           = new pg.Client(connectionString);
+    client = new pg.Client(connectionString);
 
 client.connect();
 var query = client.query("CREATE TABLE tunes(id SERIAL PRIMARY KEY, \

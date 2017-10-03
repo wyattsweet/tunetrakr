@@ -1,17 +1,20 @@
-const pg               = require('pg'),
-      connectionString = 'postgres://localhost:5432/tunetrakr';
+const { Pool } = require('pg');
+// const connectionString = 'postgres://localhost:5432/tunetrakr';
 
 var Tunes = (function() {
-
-var results = [];
+  const pool = new Pool({
+    host: 'localhost',
+    database: 'tunetrakr',
+    port: '5432'
+  });
+let results = [];
 //###################### 
 // Post to tunes table 
 // #####################
 
   var post = function(data) {
     return new Promise((res, rej) => {
-    
-      pg.connect(connectionString, (err, client, done) => {
+      pool.connect(connectionString, (err, client, done) => {
         // check errors
         if (err) {
           done();
@@ -19,15 +22,8 @@ var results = [];
         }
    
         const queryText = 'INSERT INTO tunes(artist, title, instrument) values($1, $2, $3) RETURNING *';
-        client.query(queryText, [data.artist, data.title, data.instrument], (err, result) => {
-          if (err) {
-            done();
-            rej(JSON.stringify({success: false, data: err}));
-          } else {
-            done();
-            res(JSON.stringify(result.rows[0]));
-          }
-        });
+        const query = client.query(queryText, [data.artist, data.title, data.instrument]);
+        console.log(query);
       });
     });
   }
@@ -38,18 +34,26 @@ var results = [];
 
   var getAll = function() {
     return new Promise((res, rej) => {
-      pg.connect(connectionString, (err, client, done) => {
-        results = [];
-        const query = client.query('SELECT * FROM tunes ORDER BY id ASC');
-
-        query.on('row', (row) => {
-          results.push(row);
+      pool.connect((err, client, release) => {
+        if (err) {
+          return console.error('Error aquiring client ', err.stack);
+        }
+        client.query('SELECT * FROM tunes ORDER BY id ASC', (err, results) => {
+          release();
+          if (err) {
+            return console.log('Error executing query', err.stack);
+          }
+          res(JSON.stringify(results.rows));
         });
 
-        query.on('end', () => {
-          done();
-          res(JSON.stringify(results));
-        })
+        //        query.on('row', (row) => {
+        //          results.push(row);
+        //        });
+        //
+        //        query.on('end', () => {
+        //          done();
+        //          res(JSON.stringify(results));
+        //        })
       })
     })
   }
