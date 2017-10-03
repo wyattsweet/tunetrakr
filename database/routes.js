@@ -46,6 +46,7 @@ app.post('/api/v1/tunes', (req, res) => {
   };
 
   Tunes.post(data).then(function(data) {
+    console.log(data);
     res.send(data);
   });
 });

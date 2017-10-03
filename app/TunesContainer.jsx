@@ -44,11 +44,11 @@ class TunesContainer extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        // add json to state.tunes
+        const resObj = json[0];
         classThis.state.tunes.push({
-          title: json.title,
-          artist: json.artist,
-          id: json.id
+          title: resObj.title,
+          artist: resObj.artist,
+          id: resObj.id
         });
 
         classThis.setState({
