@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-// const connectionString = 'postgres://localhost:5432/tunetrakr';
 
 var Tunes = (function() {
   const pool = new Pool({

@@ -1,18 +1,27 @@
 // run this file to create Postgres database tables
 
-var pg = require('pg'),
-    connectionString = 'postgres://localhost:5432/tunetrakr',
-    client = new pg.Client(connectionString);
+const { Pool } = require('pg');
+const pool = new Pool({
+  host: 'localhost',
+  database: 'tunetrakr',
+  port: '5432'
+});
 
-client.connect();
-var query = client.query("CREATE TABLE tunes(id SERIAL PRIMARY KEY, \
-                                             created_at timestamp default current_timestamp, \
-                                             updated_at timestamp default current_timestamp,\
-                                             artist VARCHAR(40) NOT NULL, \
-                                             title VARCHAR(40) NOT NULL, \
-                                             key VARCHAR(3), \
-                                             tonality VARCHAR(6), \
-                                             style VARCHAR(20), \
-                                             instrument VARCHAR(40) \
-                                             )");
-query.on('end', () => { client.end(); });
+pool.connect((err, client, release) => {
+  if (err) {
+    console.error(err);
+  }
+  const queryText = "CREATE TABLE tunes(id SERIAL PRIMARY KEY, \
+                                        created_at timestamp default current_timestamp, \
+                                        updated_at timestamp default current_timestamp,\
+                                        artist VARCHAR(40) NOT NULL, \
+                                        title VARCHAR(40) NOT NULL, \
+                                        key VARCHAR(3), \
+                                        tonality VARCHAR(6), \
+                                        style VARCHAR(20), \
+                                        instrument VARCHAR(40) \
+                                       )";
+  client.query(queryText, (err, results) => {
+    release();
+  });
+})
