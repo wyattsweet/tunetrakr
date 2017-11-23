@@ -15,16 +15,9 @@ This app is built with HTML/CSS, React, Node.js and PostgreSQL.
 	- `$ psql postgres`
 	- `# CREATE DATABASE tunetrakr;`
 	- `# \q`
-5. Create table by running `$ node ./server/models`
+5. Create table by running `$ node scripts/tables`
 
+## todo
 
-## Todo
-- create script to bootstrap app. It should install packages and create db, tables and seed for dev purposes
-- Webpack
-  - implement Webpack to build app
-  - Babel to transpile ES6
-  - Dev server
-
-- Upgrade to the latest version of React and PropTypes
-	- remove `createClass`
-	- import `prop-types`  
+1. Blow away most of app and start fresh
+2. Build app without data layer. Add in after.
