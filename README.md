@@ -1,7 +1,5 @@
 # Tunetrakr
 
----
-
 This is a music productivity app to help musicians store data on music they know how to play and keep track of music they want to learn in the future.
 This app is built with HTML/CSS, React, Node.js and PostgreSQL.
 
