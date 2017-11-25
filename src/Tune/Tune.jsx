@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tune = props =>
+const Tune = (props) =>
   <div className="tune">
     <span>{props.artist}</span> –
     <span>{props.title}</span>

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "db": "node ./database",
-    "dev": "webpack-dev-server",
+    "start": "webpack-dev-server --hot",
     "format": "prettier --write --single-quote --print-width=100 --parser=flow \"app/**/*.{js, jsx}\"",
     "lint": "eslint ./app/**/*.jsx --quiet",
     "server": "node app.js",
