@@ -1,5 +1,14 @@
 @import url('../styles/index.css');
 
+.wrapper {
+  align-items: center;
+  background: var(--color-black);
+  color: white;
+  display: flex;
+  height: 50px;
+  padding: 0 10px;
+}
+
 .text {
-  color: var(--color-red);
+  color: var(--color-white);
 }
