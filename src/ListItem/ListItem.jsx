@@ -5,17 +5,19 @@ import React from 'react';
 // Styles
 import styles from './styles.css';
 
-const ListItem = ({ tune }) => {
+const ListItem = ({ item, onDeleteClick }) => {
   return (
     <li className={styles.listItem}>
-      {tune.title}
-      <span>✖</span>
+      {item.title}
+      <span data-id={item.id} className={styles.delete} onClick={onDeleteClick}>
+        ✖
+      </span>
     </li>
   );
 };
 
 ListItem.propTypes = {
-  tune: PropTypes.shape({
+  item: PropTypes.shape({
     title: PropTypes.string
   }).isRequired
 };
