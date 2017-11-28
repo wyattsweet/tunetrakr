@@ -6,10 +6,23 @@ import React from 'react';
 import styles from './styles.css';
 
 const ListItem = ({ item, onDeleteClick }) => {
+  const handleKeypress = e => {
+    if (e.charCode === 13) {
+      onDeleteClick(e);
+    }
+  };
+
   return (
     <li className={styles.listItem}>
       {item.title}
-      <span data-id={item.id} className={styles.delete} onClick={onDeleteClick}>
+      <span
+        data-id={item.id}
+        className={styles.delete}
+        onClick={onDeleteClick}
+        role="button"
+        tabIndex={0}
+        onKeyPress={handleKeypress}
+      >
         ✖
       </span>
     </li>
@@ -19,7 +32,8 @@ const ListItem = ({ item, onDeleteClick }) => {
 ListItem.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 
 export default ListItem;

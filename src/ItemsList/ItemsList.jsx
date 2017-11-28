@@ -19,8 +19,8 @@ class ItemsList extends React.Component {
   }
 
   onDeleteClick(e) {
-    const itemId = parseInt(e.target.dataset.id);
-    const items = this.state.items;
+    const itemId = parseInt(e.target.dataset.id, 10);
+    const { items } = this.state;
     const newItems = items.filter(item => item.id !== itemId);
     this.setState({
       items: newItems
@@ -43,6 +43,14 @@ class ItemsList extends React.Component {
             );
           })}
         </ul>
+        <form name="submit">
+          <input
+            className={styles.input}
+            type="text"
+            placeholder="add a new tune"
+          />
+          <button name="submitButton">Add</button>
+        </form>
       </div>
     );
   }
