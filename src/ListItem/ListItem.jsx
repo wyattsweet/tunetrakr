@@ -16,12 +16,13 @@ const ListItem = ({ item, onDeleteClick }) => {
     <li className={styles.listItem}>
       {item.title}
       <span
-        data-id={item.id}
         className={styles.delete}
+        data-id={item.id}
+        name="delete"
         onClick={onDeleteClick}
+        onKeyPress={handleKeypress}
         role="button"
         tabIndex={0}
-        onKeyPress={handleKeypress}
       >
         ✖
       </span>
