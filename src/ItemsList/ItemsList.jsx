@@ -12,28 +12,44 @@ class ItemsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: props.tunes
+      tunes: props.tunes
     };
 
     this.onDeleteClick = this.onDeleteClick.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onDeleteClick(e) {
     const itemId = parseInt(e.target.dataset.id, 10);
-    const { items } = this.state;
-    const newItems = items.filter(item => item.id !== itemId);
+    const { tunes } = this.state;
+    const newItems = tunes.filter(item => item.id !== itemId);
     this.setState({
-      items: newItems
+      tunes: newItems
     });
   }
 
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(e.target.tuneInput.value);
+    const newItem = {
+      id: this.state.tunes.length + 1,
+      title: e.target.tuneInput.value
+    };
+    const newItemList = this.state.tunes;
+    newItemList.push(newItem);
+    this.setState({
+      tunes: newItemList
+    });
+    e.target.tuneInput.value = '';
+  }
+
   render() {
-    const { items } = this.state;
+    const { tunes } = this.state;
     return (
       <div className={styles.list}>
         <h1>tunes</h1>
         <ul>
-          {items.map(item => {
+          {tunes.map(item => {
             return (
               <ListItem
                 key={item.id}
@@ -43,13 +59,14 @@ class ItemsList extends React.Component {
             );
           })}
         </ul>
-        <form name="submit">
+        <form onSubmit={this.onSubmit}>
           <input
             className={styles.input}
+            name="tuneInput"
             type="text"
             placeholder="add a new tune"
           />
-          <button name="submitButton">Add</button>
+          <button type="submit">Add</button>
         </form>
       </div>
     );

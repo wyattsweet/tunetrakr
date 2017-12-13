@@ -7,6 +7,9 @@ import Header from '../Header';
 import preload from '../../preload.json';
 import ItemsList from '../ItemsList';
 
+// Import base styles
+import '../styles/base.css';
+
 const App = () => {
   return (
     <div>

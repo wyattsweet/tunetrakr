@@ -1,32 +1,29 @@
 [
   {
     "id": 1,
-    "title": "Golden Days",
-    "tuneList": true
+    "title": "Golden Days"
+    
   },
   {
     "id": 2,
-    "title": "So What",
-    "tuneList": true
+    "title": "So What"
+    
   },
   {
     "id": 3,
-    "title": "Dawned on Me",
-    "tuneList": true
+    "title": "Dawned on Me"
+    
   },
   {
     "id": 4,
-    "title": "You and I",
-    "tuneList": true
+    "title": "You and I"
   },
   {
     "id": 5,
-    "title": "Pushing Onlys",
-    "tuneList": true
+    "title": "Pushing Onlys"
   },
   {
     "id": 6,
-    "title": "All Blues",
-    "tuneList": true
+    "title": "All Blues"
   }
 ]
