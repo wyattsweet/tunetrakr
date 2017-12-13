@@ -30,7 +30,6 @@ class ItemsList extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(e.target.tuneInput.value);
     const newItem = {
       id: this.state.tunes.length + 1,
       title: e.target.tuneInput.value
