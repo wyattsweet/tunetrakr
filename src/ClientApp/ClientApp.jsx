@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 
 // Internal
 import Header from '../Header';
+import Log from '../Log';
 import preload from '../../preload.json';
 import TuneList from '../TuneList';
 import VerticalColumn from '../VerticalColumn';
@@ -21,6 +22,9 @@ const App = () => {
         </VerticalColumn>
         <VerticalColumn>
           <TuneList title="Backlog" tunes={preload} />
+        </VerticalColumn>
+        <VerticalColumn>
+          <Log />
         </VerticalColumn>
       </div>
     </div>
