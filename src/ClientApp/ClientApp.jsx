@@ -5,16 +5,24 @@ import { render } from 'react-dom';
 // Internal
 import Header from '../Header';
 import preload from '../../preload.json';
-import ItemsList from '../ItemsList';
+import TuneList from '../TuneList';
+import VerticalColumn from '../VerticalColumn';
 
-// Import base styles
+// Styles
 import '../styles/base.css';
 
 const App = () => {
   return (
     <div>
       <Header />
-      <ItemsList tunes={preload} />
+      <div className="listWrapper">
+        <VerticalColumn>
+          <TuneList title="Active Tunes" tunes={preload} />
+        </VerticalColumn>
+        <VerticalColumn>
+          <TuneList title="Backlog" tunes={preload} />
+        </VerticalColumn>
+      </div>
     </div>
   );
 };

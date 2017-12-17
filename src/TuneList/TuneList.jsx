@@ -1,6 +1,6 @@
 // Vendor
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 
 // Internal
 import ListItem from '../ListItem';
@@ -8,7 +8,7 @@ import ListItem from '../ListItem';
 // Styles
 import styles from './styles.css';
 
-class ItemsList extends React.Component {
+class TuneList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,8 +45,8 @@ class ItemsList extends React.Component {
   render() {
     const { tunes } = this.state;
     return (
-      <div className={styles.list}>
-        <h1>tunes</h1>
+      <div>
+        <h1>{this.props.title}</h1>
         <ul>
           {tunes.map(item => {
             return (
@@ -58,22 +58,27 @@ class ItemsList extends React.Component {
             );
           })}
         </ul>
-        <form onSubmit={this.onSubmit}>
+        <form className={styles.form} onSubmit={this.onSubmit}>
           <input
             className={styles.input}
             name="tuneInput"
             type="text"
             placeholder="add a new tune"
+            onFocus={e => (e.target.placeholder = '')}
+            onBlur={e => (e.target.placeholder = 'add a new tune')}
           />
-          <button type="submit">Add</button>
+          <button className={styles.button} type="submit">
+            Add
+          </button>
         </form>
       </div>
     );
   }
 }
 
-ItemsList.propTypes = {
+TuneList.propTypes = {
+  title: PropTypes.string.isRequired,
   tunes: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-export default ItemsList;
+export default TuneList;

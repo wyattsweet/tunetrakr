@@ -1,0 +1,6 @@
+.list {
+  display: inline-block;
+  margin: 0 6px;
+  vertical-align: top;
+  width: calc(100% / 3 - 12px);
+}
