@@ -2,6 +2,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import DeleteButton from '../DeleteButton';
+
 // Styles
 import styles from './styles.css';
 
@@ -11,21 +13,14 @@ const ListItem = ({ item, onDeleteClick }) => {
       onDeleteClick(e);
     }
   };
-
   return (
     <li className={styles.listItem}>
       {item.title}
-      <span
-        className={styles.delete}
-        data-id={item.id}
-        name="delete"
-        onClick={onDeleteClick}
-        onKeyPress={handleKeypress}
-        role="button"
-        tabIndex={0}
-      >
-        ✖
-      </span>
+      <DeleteButton
+        handleKeypress={handleKeypress}
+        id={item.id}
+        onDeleteClick={onDeleteClick}
+      />
     </li>
   );
 };
