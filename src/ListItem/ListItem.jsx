@@ -7,7 +7,7 @@ import DeleteButton from '../DeleteButton';
 // Styles
 import styles from './styles.css';
 
-const ListItem = ({ item, onDeleteClick }) => {
+const ListItem = ({ children, onDeleteClick }) => {
   const handleKeypress = e => {
     if (e.charCode === 13) {
       onDeleteClick(e);
@@ -15,10 +15,10 @@ const ListItem = ({ item, onDeleteClick }) => {
   };
   return (
     <li className={styles.listItem}>
-      {item.title}
+      {children.title}
       <DeleteButton
         handleKeypress={handleKeypress}
-        id={item.id}
+        id={children.id}
         onDeleteClick={onDeleteClick}
       />
     </li>
@@ -26,9 +26,6 @@ const ListItem = ({ item, onDeleteClick }) => {
 };
 
 ListItem.propTypes = {
-  item: PropTypes.shape({
-    title: PropTypes.string
-  }).isRequired,
   onDeleteClick: PropTypes.func.isRequired
 };
 

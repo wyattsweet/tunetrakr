@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-// Internal
 import ListItem from '../ListItem';
 
 // Styles
@@ -43,18 +42,13 @@ class TuneList extends Component {
   }
 
   render() {
-    const { tunes } = this.state;
     return (
       <div>
         <h1>{this.props.title}</h1>
         <ul>
-          {tunes.map(item => {
+          {this.state.tunes.map(tune => {
             return (
-              <ListItem
-                key={item.id}
-                item={item}
-                onDeleteClick={this.onDeleteClick}
-              />
+              <ListItem onDeleteClick={this.onDeleteClick}>{tune}</ListItem>
             );
           })}
         </ul>
