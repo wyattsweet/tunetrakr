@@ -1,9 +1,10 @@
 # Tunetrakr
 
-This is a music productivity app to help musicians store data on music they know how to play and keep track of music they want to learn in the future.
-This app is built with HTML/CSS, React, Node.js and PostgreSQL.
+TuneTrakr is a music productivity app built with React. It's main purpose is to help musicians store data on music they know how to play and keep track of music they want to learn in the future.
 
-## Bootstrapping the app
+For now all you need to do to run the app locally is clone the repo, run `yarn install`. Then, `npm start` will run the development build.
+
+In the future, to run the app locally. The process will be something like:
 
 1. Clone repo
 2. run `yarn install`
@@ -14,8 +15,3 @@ This app is built with HTML/CSS, React, Node.js and PostgreSQL.
 	- `# CREATE DATABASE tunetrakr;`
 	- `# \q`
 5. Create table by running `$ node scripts/tables`
-
-## todo
-
-1. Blow away most of app and start fresh
-2. Build app without data layer. Add in after.
