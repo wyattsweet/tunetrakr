@@ -1,9 +1,11 @@
+```
  _                  _____         _         
 | |                |_   _|       | |        
 | |_ _   _ _ __   ___| |_ __ __ _| | ___ __ 
 | __| | | | '_ \ / _ \ | '__/ _` | |/ / '__|
 | |_| |_| | | | |  __/ | | | (_| |   <| |   
  \__|\__,_|_| |_|\___\_/_|  \__,_|_|\_\_| 
+```
 
 TuneTrakr is a music productivity app built with React. It's main purpose is to help musicians store data on music they know how to play and keep track of music they want to learn in the future.
 
