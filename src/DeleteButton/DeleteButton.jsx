@@ -5,7 +5,7 @@ import React from 'react';
 // Styles
 import styles from './styles.css';
 
-const DeleteButton = ({ handleKeypress, id, onDeleteClick }) => {
+const DeleteButton = ({handleKeypress, id, onDeleteClick}) => {
   return (
     <span
       className={styles.delete}
@@ -14,8 +14,7 @@ const DeleteButton = ({ handleKeypress, id, onDeleteClick }) => {
       onClick={onDeleteClick}
       onKeyPress={handleKeypress}
       role="button"
-      tabIndex={0}
-    >
+      tabIndex={0}>
       ✖
     </span>
   );
@@ -24,7 +23,7 @@ const DeleteButton = ({ handleKeypress, id, onDeleteClick }) => {
 DeleteButton.propTypes = {
   handleKeypress: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  onDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default DeleteButton;
