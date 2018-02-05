@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 
 // Internal
 import LogEntry from '../LogEntry'
+import Modal from '../Modal'
 import style from './styles.css'
 import SvgAdd from '../SVGs/SvgAdd'
 
@@ -50,6 +51,7 @@ class Log extends Component {
           <div className={style.svg}>
             <SvgAdd />
           </div>
+          <Modal />
         </div>
         <ul>
           {entriesReversed.map(entry => (
