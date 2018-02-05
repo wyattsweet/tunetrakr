@@ -1,44 +1,44 @@
 // Vendor
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
 
-import ListItem from '../ListItem';
+import ListItem from '../ListItem'
 
 // Styles
-import styles from './styles.css';
+import styles from './styles.css'
 
 class TuneList extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      tunes: props.tunes
-    };
+      tunes: props.tunes,
+    }
 
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onDeleteClick = this.onDeleteClick.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   onDeleteClick(e) {
-    const itemId = parseInt(e.target.dataset.id, 10);
-    const { tunes } = this.state;
-    const newItems = tunes.filter(item => item.id !== itemId);
+    const itemId = parseInt(e.target.dataset.id, 10)
+    const {tunes} = this.state
+    const newItems = tunes.filter(item => item.id !== itemId)
     this.setState({
-      tunes: newItems
-    });
+      tunes: newItems,
+    })
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     const newItem = {
       id: this.state.tunes.length + 1,
-      title: e.target.tuneInput.value
-    };
-    const newItemList = this.state.tunes;
-    newItemList.push(newItem);
+      title: e.target.tuneInput.value,
+    }
+    const newItemList = this.state.tunes
+    newItemList.push(newItem)
     this.setState({
-      tunes: newItemList
-    });
-    e.target.tuneInput.value = '';
+      tunes: newItemList,
+    })
+    e.target.tuneInput.value = ''
   }
 
   render() {
@@ -48,8 +48,12 @@ class TuneList extends Component {
         <ul>
           {this.state.tunes.map(tune => {
             return (
-              <ListItem onDeleteClick={this.onDeleteClick}>{tune}</ListItem>
-            );
+              <ListItem
+                key={`${tune.id}-${tune.title}`}
+                onDeleteClick={this.onDeleteClick}>
+                {tune}
+              </ListItem>
+            )
           })}
         </ul>
         <form className={styles.form} onSubmit={this.onSubmit}>
@@ -66,13 +70,13 @@ class TuneList extends Component {
           </button>
         </form>
       </div>
-    );
+    )
   }
 }
 
 TuneList.propTypes = {
   title: PropTypes.string.isRequired,
-  tunes: PropTypes.arrayOf(PropTypes.object).isRequired
-};
+  tunes: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
 
-export default TuneList;
+export default TuneList

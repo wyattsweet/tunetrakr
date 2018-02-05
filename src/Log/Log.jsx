@@ -1,49 +1,56 @@
 // Vendor
-import React, { Component } from 'react';
+import React, {Component} from 'react'
 
 // Internal
-import LogEntry from '../LogEntry';
+import LogEntry from '../LogEntry'
+import style from './styles.css'
+import SvgAdd from '../SVGs/SvgAdd'
 
 class Log extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
-      entries: []
-    };
-    this.id = 0;
-    this.onDeleteClick = this.onDeleteClick.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+      entries: [],
+    }
+    this.id = 0
+    this.onDeleteClick = this.onDeleteClick.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   onDeleteClick(e) {
-    const id = parseInt(e.target.dataset.id, 10);
-    const { entries } = this.state;
-    const newEntries = entries.filter(entry => entry.id !== id);
+    const id = parseInt(e.target.dataset.id, 10)
+    const {entries} = this.state
+    const newEntries = entries.filter(entry => entry.id !== id)
     this.setState({
-      entries: newEntries
-    });
+      entries: newEntries,
+    })
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
     const newEntry = {
       id: (this.id += 1),
       date: new Date(),
-      message: e.target.log.value
-    };
-    const newEntries = this.state.entries;
-    newEntries.push(newEntry);
+      message: e.target.log.value,
+    }
+    const newEntries = this.state.entries
+    newEntries.push(newEntry)
     this.setState({
-      entries: newEntries
-    });
-    e.target.log.value = '';
+      entries: newEntries,
+    })
+    e.target.log.value = ''
   }
 
   render() {
-    const entriesReversed = this.state.entries.reverse();
+    const entriesReversed = this.state.entries.reverse()
     return (
       <div>
-        <h1>Practice Log</h1>
+        <div className={style.header}>
+          <h1>Practice Log</h1>
+          <div className={style.svg}>
+            <SvgAdd />
+          </div>
+        </div>
         <ul>
           {entriesReversed.map(entry => (
             <LogEntry
@@ -64,8 +71,8 @@ class Log extends Component {
           <button type="submit">Add</button>
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default Log;
+export default Log

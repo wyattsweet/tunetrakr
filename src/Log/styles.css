@@ -1,0 +1,15 @@
+@import url('../styles/index.css');
+
+.header {
+  display: flex;
+}
+
+.header h1 {
+  display: inline-block;
+}
+
+.svg {
+  align-self: center;
+  display: inline-block;
+  margin-left: 20px;
+}
