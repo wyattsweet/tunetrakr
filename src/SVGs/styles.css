@@ -3,3 +3,12 @@
 .add {
   fill: var(--color-white);
 }
+
+.close {
+  fill: var(--color-black);
+}
+
+.close:hover {
+  cursor: pointer;
+  fill: var(--color-lightgrey);
+}

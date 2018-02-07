@@ -1,12 +1,6 @@
 {
-  "extends": [
-    "airbnb",
-    "prettier",
-    "prettier/react"
-  ],
-  "plugins": [
-    "prettier"
-  ],
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 2016,
     "sourceType": "module",
@@ -22,6 +16,7 @@
   "rules": {
     "import/no-extraneous-dependencies": "off",
     "arrow-body-style": "off",
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+    "react/require-default-props": "off"
   }
 }

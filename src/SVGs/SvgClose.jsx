@@ -1,8 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const SvgClose = () => (
+import styles from './styles.css'
+
+const SvgClose = ({onClick}) => (
   <div>
     <svg
+      className={styles.close}
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -11,5 +16,9 @@ const SvgClose = () => (
     </svg>
   </div>
 )
+
+SvgClose.propTypes = {
+  onClick: PropTypes.func,
+}
 
 export default SvgClose
