@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {throttle} from 'lodash'
 
 import SvgClose from '../SVGs/SvgClose'
 
@@ -15,6 +16,11 @@ class Modal extends React.Component {
         top: props.topValue
       }
     }
+    this.closeModal = this.closeModal.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', throttle(this.closeModal, 500))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,11 +29,21 @@ class Modal extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', throttle)
+  }
+
+  closeModal(e) {
+    if (e.keyCode === 27 || !e.keyCode) {
+      this.props.onModalClose()
+    }
+  }
+
   render() {
     return (
       <div style={this.state.modalOff} className={styles.modal}>
         <div className={styles.closeButton}>
-          <SvgClose onClick={this.props.onModalClose} />
+          <SvgClose onClick={this.closeModal} />
         </div>
       </div>
     )
