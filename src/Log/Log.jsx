@@ -12,8 +12,10 @@ class Log extends Component {
     super()
     this.state = {
       entries: [],
+      topValue: '-600px'
     }
     this.id = 0
+    this.onAddLogClick = this.onAddLogClick.bind(this)
     this.onDeleteClick = this.onDeleteClick.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
@@ -23,7 +25,7 @@ class Log extends Component {
     const {entries} = this.state
     const newEntries = entries.filter(entry => entry.id !== id)
     this.setState({
-      entries: newEntries,
+      entries: newEntries
     })
   }
 
@@ -32,14 +34,20 @@ class Log extends Component {
     const newEntry = {
       id: (this.id += 1),
       date: new Date(),
-      message: e.target.log.value,
+      message: e.target.log.value
     }
     const newEntries = this.state.entries
     newEntries.push(newEntry)
     this.setState({
-      entries: newEntries,
+      entries: newEntries
     })
     e.target.log.value = ''
+  }
+
+  onAddLogClick(e) {
+    if (e.charCode === 13 || !e.charCode) {
+      this.setState({topValue: '25%'})
+    }
   }
 
   render() {
@@ -48,10 +56,18 @@ class Log extends Component {
       <div>
         <div className={style.header}>
           <h1>Practice Log</h1>
-          <div className={style.svg}>
+          <div
+            onClick={this.onAddLogClick}
+            role="button"
+            tabIndex={0}
+            onKeyPress={this.onAddLogClick}
+            className={style.showModalButton}>
             <SvgAdd />
           </div>
-          <Modal />
+          <Modal
+            topValue={this.state.topValue}
+            onModalClose={() => this.setState({topValue: '-600px'})}
+          />
         </div>
         <ul>
           {entriesReversed.map(entry => (
