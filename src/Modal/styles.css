@@ -1,0 +1,24 @@
+@import url('../styles/index.css');
+
+:root {
+  --modal-height: 600px;
+  --modal-width: 500px;
+}
+
+.modal {
+  background: var(--color-white);
+  box-shadow: 2px 12px 15px 0 rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  position: fixed;
+  transition: top 0.2s;
+  left: 50%;
+  margin-top: calc(var(--modal-height) / 4 * -1);
+  margin-left: calc(var(--modal-width) / 2 * -1);
+  width: var(--modal-width);
+  height: var(--modal-height);
+}
+
+.closeButton {
+  padding: 10px 12px 0 0;
+  text-align: right;
+}

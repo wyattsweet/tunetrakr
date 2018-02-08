@@ -1,18 +1,18 @@
 // Vendor
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-import DeleteButton from '../DeleteButton';
+import DeleteButton from '../DeleteButton'
 
 // Styles
-import styles from './styles.css';
+import styles from './styles.css'
 
-const ListItem = ({ children, onDeleteClick }) => {
+const ListItem = ({children, onDeleteClick}) => {
   const handleKeypress = e => {
     if (e.charCode === 13) {
-      onDeleteClick(e);
+      onDeleteClick(e)
     }
-  };
+  }
   return (
     <li className={styles.listItem}>
       {children.title}
@@ -22,11 +22,15 @@ const ListItem = ({ children, onDeleteClick }) => {
         onDeleteClick={onDeleteClick}
       />
     </li>
-  );
-};
+  )
+}
 
 ListItem.propTypes = {
-  onDeleteClick: PropTypes.func.isRequired
-};
+  children: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }).isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+}
 
-export default ListItem;
+export default ListItem
