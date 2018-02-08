@@ -44,6 +44,7 @@ class Modal extends React.Component {
       <div style={this.state.modalOff} className={styles.modal}>
         <div className={styles.closeButton}>
           <SvgClose onClick={this.closeModal} />
+          {this.props.children}
         </div>
       </div>
     )

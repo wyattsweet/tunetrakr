@@ -31,15 +31,21 @@ class Log extends Component {
 
   onSubmit(e) {
     e.preventDefault()
+    if (e.target.log.value === '') {
+      e.target.log.className = style.inputEmpty
+      return false
+    }
+    e.target.log.classList.remove(style.inputEmpty)
     const newEntry = {
       id: (this.id += 1),
       date: new Date(),
       message: e.target.log.value
     }
     const newEntries = this.state.entries
-    newEntries.push(newEntry)
+    newEntries.unshift(newEntry)
     this.setState({
-      entries: newEntries
+      entries: newEntries,
+      topValue: '-600px'
     })
     e.target.log.value = ''
   }
@@ -51,7 +57,6 @@ class Log extends Component {
   }
 
   render() {
-    const entriesReversed = this.state.entries.reverse()
     return (
       <div>
         <div className={style.header}>
@@ -66,11 +71,20 @@ class Log extends Component {
           </div>
           <Modal
             topValue={this.state.topValue}
-            onModalClose={() => this.setState({topValue: '-600px'})}
-          />
+            onModalClose={() => this.setState({topValue: '-600px'})}>
+            <form onSubmit={this.onSubmit}>
+              <textarea
+                name="log"
+                placeholder="Log a message"
+                onFocus={e => (e.target.placeholder = '')}
+                onBlur={e => (e.target.placeholder = 'Log a message')}
+              />
+              <button type="submit">Add</button>
+            </form>
+          </Modal>
         </div>
         <ul>
-          {entriesReversed.map(entry => (
+          {this.state.entries.map(entry => (
             <LogEntry
               className="logEntry"
               {...entry}
@@ -79,15 +93,6 @@ class Log extends Component {
             />
           ))}
         </ul>
-        <form onSubmit={this.onSubmit}>
-          <textarea
-            name="log"
-            placeholder="Log a message"
-            onFocus={e => (e.target.placeholder = '')}
-            onBlur={e => (e.target.placeholder = 'Log a message')}
-          />
-          <button type="submit">Add</button>
-        </form>
       </div>
     )
   }

@@ -17,6 +17,8 @@
     "import/no-extraneous-dependencies": "off",
     "arrow-body-style": "off",
     "no-return-assign": "off",
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
+    "consistent-return": "off"
   }
 }
