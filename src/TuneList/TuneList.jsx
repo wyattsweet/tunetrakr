@@ -11,7 +11,7 @@ class TuneList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      tunes: props.tunes,
+      tunes: props.tunes
     }
 
     this.onDeleteClick = this.onDeleteClick.bind(this)
@@ -23,7 +23,7 @@ class TuneList extends Component {
     const {tunes} = this.state
     const newItems = tunes.filter(item => item.id !== itemId)
     this.setState({
-      tunes: newItems,
+      tunes: newItems
     })
   }
 
@@ -31,12 +31,12 @@ class TuneList extends Component {
     e.preventDefault()
     const newItem = {
       id: this.state.tunes.length + 1,
-      title: e.target.tuneInput.value,
+      title: e.target.tuneInput.value
     }
     const newItemList = this.state.tunes
     newItemList.push(newItem)
     this.setState({
-      tunes: newItemList,
+      tunes: newItemList
     })
     e.target.tuneInput.value = ''
   }
@@ -44,7 +44,7 @@ class TuneList extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.title}</h1>
+        <h1 className={styles.listTitle}>{this.props.title}</h1>
         <ul>
           {this.state.tunes.map(tune => {
             return (
@@ -76,7 +76,7 @@ class TuneList extends Component {
 
 TuneList.propTypes = {
   title: PropTypes.string.isRequired,
-  tunes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tunes: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default TuneList
