@@ -1,0 +1,12 @@
+@import url('../styles/index.css');
+
+.listWrapper {
+  margin: 0 auto;
+  max-width: var(--size-max);
+}
+
+@media (--small-viewport) {
+  .listWrapper {
+    padding: 0 10%;
+  }
+}

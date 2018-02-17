@@ -1,6 +1,15 @@
+@import url('../styles/index.css');
+
 .list {
   display: inline-block;
   margin: 0 6px;
   vertical-align: top;
   width: calc(100% / 3 - 12px);
+}
+
+@media (--small-viewport) {
+  .list {
+    margin: 40px 0 0;
+    width: 100%;
+  }
 }

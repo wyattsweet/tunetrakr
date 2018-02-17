@@ -12,3 +12,9 @@
 .text {
   color: var(--color-white);
 }
+
+@media (--small-viewport) {
+  .wrapper {
+    padding: 0 10%;
+  }
+}
