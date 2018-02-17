@@ -22,3 +22,10 @@
   padding: 10px 12px 0 0;
   text-align: right;
 }
+
+@media (--modal) {
+  .modal {
+    width: 100%;
+    margin-left: -50%;
+  }
+}

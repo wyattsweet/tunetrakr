@@ -3,3 +3,4 @@
 }
 
 @custom-media --small-viewport (max-width: 920px);
+@custom-media --modal (max-width: 500px);
